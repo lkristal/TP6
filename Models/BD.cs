@@ -24,7 +24,7 @@ namespace TP6.Models
 
         public static int EliminarJugador(int IdJugador)
         {
-            int Result =0;
+            int Result = 0;
             string SQL = "DELETE FROM Jugadores WHERE IdJugador=@pIdJugador";
             using(SqlConnection db = new SqlConnection(_connectionString))
             {
