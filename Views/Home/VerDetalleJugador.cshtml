@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <div class="container">
+     <div class="row">
+        <div class="col-md-6 col-12"><img class="img-fluid" src="/@ViewBag.Jugador.Foto" alt=""></div>
+        <div class="col-md-6 col-12">
+            <h1 class="display-4">@ViewBag.Jugador.Nombre</h1>
+            <p class="lead">Fecha Nacimiento @ViewBag.Jugador.FechaNacimiento.ToShortDateString()</p>
+            <hr class="my-4">
+            <p>Equipo Actual @ViewBag.Jugador.EquipoActual</p>
+            <a class="btn btn-primary btn-lg" href='@Url.Action("VerDetalleEquipo","Home", new {IdEquipo=@ViewBag.Jugador.IdEquipo})' role="button">
+                Volver al Equipo
+            </a>
+        </div>
+     </div>
+  </div>
+  
+</div>

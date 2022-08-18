@@ -1,0 +1,94 @@
+<div class="jumbotron">
+  <div class="container">
+     <div class="row">
+        <div class="col-md-6 col-12"><img class="img-fluid" src="@ViewBag.Equipo.Escudo" alt=""></div>
+        <div class="col-md-6 col-12"><img class="img-fluid" src="@ViewBag.Equipo.Camiseta" alt=""></div>
+     </div>
+  </div>
+  <h1 class="display-4">@ViewBag.Equipo.Nombre</h1>
+  <p class="lead">@ViewBag.Equipo.Continente</p>
+  <hr class="my-4">
+  <p>Copas ganadas @ViewBag.Equipo.CopasGanadas</p>
+  <a class="btn btn-primary btn-lg" href='@Url.Action("AgregarJugador","Home", new {IdEquipo=@ViewBag.Equipo.IdEquipo})' role="button">
+    Agregar Nuevo Jugador
+  </a>  
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Foto</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody>
+    @{
+        int i=1;
+    }
+    @foreach (Jugador itemJ in ViewBag.Jugadores)
+    {
+        <tr>
+            <th scope="row">@(i++)</th>
+            <td><img src="/@itemJ.Foto" width="100" alt=""> </td>
+            <td>@itemJ.Nombre</td>
+            <td>
+                <a href='@Url.Action("VerDetalleJugador","Home", new {IdEquipo=itemJ.IdEquipo, IdJugador=itemJ.IdJugador})' class="btn btn-primary">Ver más Info</a>
+                <a href='@Url.Action("EliminarJugador","Home", new {IdEquipo=itemJ.IdEquipo, IdJugador=itemJ.IdJugador})' class="btn btn-primary">Eliminar Jugador</a>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalJugador" onclick="MostrarJugador(@itemJ.IdJugador)">
+                    Ver Info en Modal
+                </button>
+                
+            </td>
+        </tr>
+    }
+  </tbody>
+</table>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalJugador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="NombreJugador">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img class="img-fluid" id="FotoJugador">
+        <div id="EquipoActual"></div>
+        <div id="FechaNacimiento"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function MostrarJugador(IdJ)
+  {
+    $.ajax(  
+        {  
+            type: 'POST',  
+            dataType: 'JSON',  
+            url: '/Home/VerDetalleJugadorAjax',  
+            data: { IdJugador: IdJ },  
+            success:  
+                function (response)  
+                {  
+                    $("#NombreJugador").html(response.nombre);
+                    $("#FotoJugador").attr("src", "/"+response.foto);
+                    $("#EquipoActual").html("Equipo Actual: " + response.equipoActual);
+                    $("#FechaNacimiento").html("Fecha de Nacimiento: " + response.fechaNacimiento.substr(0,9));
+                }
+        });  
+  }
+</script>

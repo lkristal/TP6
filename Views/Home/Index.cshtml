@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Qatar 2022</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (Equipo item in ViewBag.Equipos)
+        {
+            <div class="col-md-4 col-12">
+                <div class="card" style="width: 18rem;">
+                <img src="@item.Escudo" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Nombre</h5>
+                    <a href='@Url.Action("VerDetalleEquipo","Home", new {IdEquipo=item.IdEquipo})' class="btn btn-primary">Ver Info de @item.Nombre</a>
+                </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+</div>
