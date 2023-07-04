@@ -1,0 +1,29 @@
+
+    $.ajax({  
+        url: '/Home/VerDetalleJugadorAjax',   // la URL para la petición
+
+        data: { IdJugador: IdJ },   // la información a enviar
+                                    // (también es posible utilizar una cadena de datos)
+
+        type : 'GET',               // especifica si será una petición POST o GET
+
+        dataType : 'json',      // el tipo de información que se espera de respuesta. En este caso 
+                                // será un objeto Javascript (más adelante veremos esto en detalle) 
+
+        success : function(response) {      // código a ejecutar si la petición es satisfactoria;
+                                            // la respuesta es pasada como argumento a la función
+
+            $("#NombreJugador").html(response.nombre);          // En el Tag cuyo Id es NombreJugador 
+                                                                // agregará el nombre recibido
+            $("#FotoJugador").attr("src", "/"+response.foto);   // en el atributo src del tag img
+                                                                // agregará el la imagen recibida 
+        },
+        error : function(xhr, status) {     // código a ejecutar si la petición falla son pasados
+                                            // como argumentos a la función. 
+                                            // el objeto de la petición y código de estatus de la petición
+            alert('Disculpe, existió un problema');
+        },
+        complete : function(xhr, status) {  // código a ejecutar sin importar si la petición falló o no
+            console.log('Petición realizada');
+        }
+    });

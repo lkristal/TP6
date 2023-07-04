@@ -20,7 +20,7 @@ namespace TP6.Models
             _Camiseta = pCamiseta; _Escudo = pEscudo; _Nombre = pNombre; _Continente = pContinente;
         }
         
-        public int IdEquipo { get { return _IdEquipo;} set { _IdEquipo = value;}}
+        public int IdEquipo { get; private set;}
         public string Nombre { get {return _Nombre;} set { _Nombre = value;}}
         public string Escudo { get {return _Escudo;} set { _Escudo = value;}}
         public string Camiseta { get {return _Camiseta;} set { _Camiseta = value;}}
